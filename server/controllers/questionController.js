@@ -10,6 +10,9 @@ exports.getQuestions = factory.getAll(Question);
 
 exports.createQuestion = catchRequest(
     async (req, res) => {
+        if (!req.file) {
+            throw new AppError('no file found in request', 404);
+        }
         const doc = await Question.create(req.body);
         res.status(201).json({
             status: 'success',
