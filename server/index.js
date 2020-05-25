@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
 const next = require('next');
 
 const userRouter = require('./routes/userRouter');
@@ -38,6 +39,10 @@ app.prepare()
             res.header("Access-Control-Allow-Methods", "*");
             next();
         });
+
+        server.disable('x-powered-by');
+
+        server.use(helmet());
 
         server.use('/api/v1/users', userRouter);
         server.use('/api/v1/exams', examRouter);

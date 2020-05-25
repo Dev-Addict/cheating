@@ -10,7 +10,7 @@ router.route('/')
     .post(authController.protect, authController.restrictTo('admin'), answerController.createAnswer);
 router.route('/:id')
     .get(authController.protect, answerController.getAnswer)
-    .patch(authController.protect, authController.restrictTo('admin'), answerController.updateAnswer)
-    .delete(authController.protect, authController.restrictTo('admin'), answerController.deleteAnswer);
+    .patch(authController.protect, authController.restrictTo('admin', 'selfUser'), answerController.updateAnswer)
+    .delete(authController.protect, authController.restrictTo('admin', 'selfUser'), answerController.deleteAnswer);
 
 module.exports = router;

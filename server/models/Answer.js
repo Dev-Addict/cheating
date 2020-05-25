@@ -16,6 +16,10 @@ const answerSchema = new mongoose.Schema({
     wrongs: {
         type: [mongoose.Schema.ObjectId],
         ref: 'User'
+    },
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
     }
 });
 

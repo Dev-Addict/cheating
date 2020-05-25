@@ -10,7 +10,7 @@ router.route('/')
     .post(authController.protect, authController.restrictTo('admin'), examController.createExam);
 router.route('/:id')
     .get(authController.protect, examController.getExam)
-    .patch(authController.protect, authController.restrictTo('admin'), examController.updateExam)
+    .patch(authController.protect, examController.updateExam)
     .delete(authController.protect, authController.restrictTo('admin'), examController.deleteExam);
 
 module.exports = router;

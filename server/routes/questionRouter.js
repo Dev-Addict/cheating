@@ -11,7 +11,7 @@ router.route('/')
     .post(authController.protect, upload.single('question'), questionController.saveQuestionImage, questionController.createQuestion);
 router.route('/:id')
     .get(authController.protect, questionController.getQuestion)
-    .patch(authController.protect, authController.restrictTo('admin'), upload.single('question'), questionController.updateQuestion)
+    .patch(authController.protect, questionController.updateQuestion)
     .delete(authController.protect, authController.restrictTo('admin'), questionController.deleteQuestion);
 
 module.exports = router;

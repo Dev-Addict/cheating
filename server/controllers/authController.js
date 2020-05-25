@@ -2,6 +2,7 @@ const {promisify} = require('util');
 const jsonWebToken = require('jsonwebtoken');
 
 const User = require('../models/User');
+const Answer = require('../models/Answer');
 const catchRequest = require('../utils/catchRequest');
 const AppError = require('../utils/AppError');
 
@@ -77,6 +78,11 @@ exports.restrictTo = (...rotes) => {
         async (req, res, next) => {
             if (rotes.includes(req.user.rote)) {
                 return next();
+            } else if (rotes.includes('selfUser')) {
+                const answer = await Answer.findById(req.params.id);
+                if (answer.user === req.user._id) {
+                    return next();
+                }
             }
             throw new AppError('You don\'t have permission to do that', 403);
         }
