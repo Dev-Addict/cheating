@@ -16,7 +16,7 @@ const examSchema = new mongoose.Schema({
         type: Date,
         required: [true, 'A Exam Must Have A startAt']
     },
-    question: {
+    questions: {
         type: [mongoose.Schema.ObjectId],
         ref: 'Question'
     }
@@ -24,4 +24,4 @@ const examSchema = new mongoose.Schema({
 
 const Exam = mongoose.model('Exam', examSchema);
 
-export default Exam;
+module.exports = Exam;
