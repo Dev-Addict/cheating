@@ -5,6 +5,10 @@ const questionSchema = new mongoose.Schema({
         type: String,
         required: [true, 'A Question Must Have A question']
     },
+    questionString: {
+        type: String,
+        default: ''
+    },
     answers: {
         type: [mongoose.Schema.ObjectId],
         ref: 'Answer'

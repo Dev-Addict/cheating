@@ -5,9 +5,6 @@ const answerSchema = new mongoose.Schema({
         type: String,
         required: [true, 'An Answer Must Have A value']
     },
-    file: {
-        type: String
-    },
     sure: {
         type: Boolean,
         default: true
