@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.route('/')
     .get(authController.protect, questionController.getQuestions)
-    .post(authController.protect, upload.single('question'), questionController.createQuestion);
+    .post(authController.protect, upload.single('question'), questionController.saveQuestionImage, questionController.createQuestion);
 router.route('/:id')
     .get(authController.protect, questionController.getQuestion)
     .patch(authController.protect, authController.restrictTo('admin'), upload.single('question'), questionController.updateQuestion)

@@ -1,4 +1,4 @@
-const multer = require('multer');
+const sharp = require('sharp');
 
 const factory = require('./handlerFactory');
 const Question = require('../models/Question');
@@ -13,7 +13,7 @@ exports.createQuestion = catchRequest(
         if (!req.file) {
             throw new AppError('no file found in request', 404);
         }
-        console.log(req.file);
+        req.body.question = req.file.filename;
         const doc = await Question.create(req.body);
         res.status(201).json({
             status: 'success',
@@ -50,3 +50,17 @@ exports.pushAnswer = catchRequest(
         });
     }
 );
+
+exports.saveQuestionImage = catchRequest(
+    async (req, res, next) => {
+        if (!req.file) {
+            return next();
+        }
+        const ext = req.file.mimetype.split('/')[1];
+        req.file.filename = `question-${req.user.id}-${Date.now()}.${ext}`;
+        await sharp(req.file.buffer)
+            .toFormat('jpeg')
+            .jpeg({ quality: 90 })
+            .toFile(`uploads/questions/${req.file.filename}`);
+        next();
+    });

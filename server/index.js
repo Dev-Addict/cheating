@@ -41,6 +41,8 @@ app.prepare()
         server.use('/api/v1/questions', questionRouter);
         server.use('/api/v1/answers', answerRouter);
 
+        server.use('/api/v1/download', express.static('uploads'));
+
         server.get('*', (req, res) => {
             return handle(req, res);
         });
