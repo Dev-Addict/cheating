@@ -4,7 +4,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const next = require('next');
 
-const errorController = require('./controller/errorController');
+const userRouter = require('./routes/userRouter');
+const errorController = require('./controllers/errorController');
 
 dotenv.config({
     path: path.join(__dirname, './config.env')
@@ -28,6 +29,8 @@ app.prepare()
             res.header("Access-Control-Allow-Methods", "*");
             next();
         });
+
+        server.use('/api/v1/users', userRouter);
 
         server.get('*', (req, res) => {
             return handle(req, res);
