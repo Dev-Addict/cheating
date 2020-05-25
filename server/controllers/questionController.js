@@ -13,6 +13,7 @@ exports.createQuestion = catchRequest(
         if (!req.file) {
             throw new AppError('no file found in request', 404);
         }
+        console.log(req.file);
         const doc = await Question.create(req.body);
         res.status(201).json({
             status: 'success',

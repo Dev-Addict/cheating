@@ -6,6 +6,9 @@ const bodyParser = require('body-parser');
 const next = require('next');
 
 const userRouter = require('./routes/userRouter');
+const examRouter = require('./routes/examRouter');
+const questionRouter = require('./routes/questionRouter');
+const answerRouter = require('./routes/answerRouter');
 const errorController = require('./controllers/errorController');
 
 dotenv.config({
@@ -34,6 +37,9 @@ app.prepare()
         });
 
         server.use('/api/v1/users', userRouter);
+        server.use('/api/v1/exams', examRouter);
+        server.use('/api/v1/questions', questionRouter);
+        server.use('/api/v1/answers', answerRouter);
 
         server.get('*', (req, res) => {
             return handle(req, res);

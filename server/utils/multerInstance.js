@@ -1,14 +1,23 @@
 const multer = require('multer');
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/questions');
-    },
-    filename: function (req, file, cb) {
-        cb(null, req.user._id + '-' + Date.now());
-    }
-});
+const storage = multer.memoryStorage();
 
-const upload = multer({ storage: storage });
+const multerFilter = (req, file, cb) => {
+    if (file.mimeType.startsWith('image')) {
+        cb(null, true);
+    } else {
+        cb(
+            new AppError(
+                'invalid file input we only accept images.',
+                400
+            ),
+            false);
+    }
+};
+
+const upload = multer({
+    storage: storage,
+    fileFilter: multerFilter
+});
 
 module.exports = upload;
