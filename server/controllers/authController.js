@@ -19,6 +19,10 @@ const sendToken = (user, statusCode, res) => {
 
     user.password = undefined;
 
+    res.cookie('jwt', token, {
+        httpOnly: true
+    });
+
     res.status(statusCode).json({
         status: 'success',
         token,
@@ -50,6 +54,8 @@ exports.protect = catchRequest(async (req, res, next) => {
     let token;
     if (req.headers.authorization) {
         token = req.headers.authorization;
+    } else if (req.cookies.jwt) {
+        token = req.cookies.jwt
     }
     if (!token) {
         throw new AppError('You are not logged in.', 401);

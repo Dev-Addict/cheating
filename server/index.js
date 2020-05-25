@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const next = require('next');
 
 const userRouter = require('./routes/userRouter');
@@ -28,6 +29,8 @@ app.prepare()
         }));
 
         server.use(bodyParser.urlencoded({extended: true}));
+
+        server.use(cookieParser());
 
         server.use((req, res, next) => {
             res.header("Access-Control-Allow-Origin", "*");
