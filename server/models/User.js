@@ -1,33 +1,18 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
-    name: {
+    username: {
         type: String,
-        required: [true, 'A User Must Have A name'],
+        required: [true, 'A User Must Have A username'],
         trim: true,
-        maxLength: [40, 'A User Must Have a name With Less Than 40 Characters'],
-        minLength: [10, 'A User Must Have a name With At List 10 Characters']
-    },
-    email: {
-        type: String,
-        required: [true, 'A User Must Have A email'],
-        unique: true,
-        lowercase: true,
-        validate: {
-            validator: validator.isEmail,
-            message: 'A User Must Have Valid email'
-        }
-    },
-    photo: {
-        type: String,
-        default: 'default.jpg'
+        maxLength: [40, 'A User Must Have a username With Less Than 40 Characters'],
+        minLength: [10, 'A User Must Have a username With At List 10 Characters']
     },
     rote: {
         type: String,
         enum: {
-            values: ['admin', 'guide', 'guide-lead', 'user'],
+            values: ['admin', 'user'],
             message: 'A User Must Have rote Value Set To admin Or User.'
         },
         default: 'user'
