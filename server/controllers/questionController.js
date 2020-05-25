@@ -1,3 +1,5 @@
+const multer = require('multer');
+
 const factory = require('./handlerFactory');
 const Question = require('../models/Question');
 const Answer = require('../models/Answer');
@@ -6,7 +8,17 @@ const AppError = require('../utils/AppError');
 
 exports.getQuestions = factory.getAll(Question);
 
-exports.createQuestion = factory.createOne(Question);
+exports.createQuestion = catchRequest(
+    async (req, res) => {
+        const doc = await Question.create(req.body);
+        res.status(201).json({
+            status: 'success',
+            data: {
+                doc
+            }
+        });
+    }
+);
 
 exports.getQuestion = factory.getOne(Question);
 
