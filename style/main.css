@@ -76,3 +76,9 @@ input {
 .users-list {
     padding: 20px;
 }
+
+.exams-list {
+    padding: 20px;
+    background-color: #2ecc7188;
+    border-radius: 10px;
+}

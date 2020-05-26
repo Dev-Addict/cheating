@@ -5,7 +5,7 @@ import UserDashboard from "../components/UserDashboard";
 import cheating from "../api/cheating";
 import Cookie from "js-cookie";
 
-const Dashboard = ({auth, users}) => {
+const Dashboard = ({auth, users, exams}) => {
     if (!auth.isSignedIn && process.browser) {
         Router.push('/');
         return (<div/>);
@@ -14,29 +14,41 @@ const Dashboard = ({auth, users}) => {
         return (<div/>);
     }
     if (auth.user.rote === 'admin') {
-        return <AdminDashboard users={users}/>
+        return <AdminDashboard users={users} exams={exams}/>
     }
     return (
-        <UserDashboard/>
+        <UserDashboard exams={exams}/>
     );
 };
 
 Dashboard.getInitialProps = async context => {
+    const token = ((context.req || {}).cookies || {}).jwt || Cookie.get('jwtClient');
+    let users;
+    let exams;
     try {
-        const token = ((context.req || {}).cookies || {}).jwt || Cookie.get('jwtClient');
         const res = await cheating.get('/users', {
             headers: {
                 Authorization: token
             }
         });
-        return {
-            users: res.data.data.docs
-        };
+        users = res.data.data.docs;
     } catch (err) {
-        return {
-            users: []
-        };
+        users = [];
     }
+    try {
+        const res = await cheating.get('/exams', {
+            headers: {
+                Authorization: token
+            }
+        });
+        exams = res.data.data.docs;
+    } catch (err) {
+        exams = [];
+    }
+    return {
+        users,
+        exams
+    };
 };
 
 export default Dashboard;
