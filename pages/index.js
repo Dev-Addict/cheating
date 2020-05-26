@@ -12,6 +12,12 @@ const Home = ({auth}) => {
     const validate = values => {
         const errors = {};
 
+        Object.entries(values).forEach(([key, value]) => {
+            if (!value) {
+                errors[key] = `${key} is required.`;
+            }
+        });
+
         return errors;
     };
 
