@@ -1,7 +1,9 @@
 import Cookie from "js-cookie";
 import Router from "next/router";
 
+import QuestionButtons from "../../../components/QuestionButtons";
 import cheating from "../../../api/cheating";
+import AnswersList from "../../../components/AnswersList";
 
 const Question = ({question, auth, answers}) => {
     if (process.browser && !auth.isSignedIn) {
@@ -22,6 +24,8 @@ const Question = ({question, auth, answers}) => {
     return (
         <div className="exam">
             <h1>{question.questionString}</h1>
+            <QuestionButtons id={question._id}/>
+            <AnswersList question={question} answers={answers}/>
         </div>
     );
 };
