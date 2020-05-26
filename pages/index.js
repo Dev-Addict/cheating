@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-const Home = () => {
+const Home = ({auth}) => {
     return (
         <div>
             <Head>
