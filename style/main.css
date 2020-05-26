@@ -79,6 +79,14 @@ input {
 
 .exams-list {
     padding: 20px;
-    background-color: #2ecc7188;
     border-radius: 10px;
+}
+
+.exams-list-exam {
+    background-color: #2ecc7188;
+    display: inline-block;
+}
+
+.exam {
+    padding: 20px;
 }

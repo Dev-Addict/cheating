@@ -1,7 +1,7 @@
 const ExamsList = ({exams}) => {
     const renderExams = exams.map(exam => (
-        <div className="exams-list-user" key={exam._id}>
-            <div className="exams-list-username">{exam.name}</div>
+        <div className="exams-list-exam" key={exam._id}>
+            <div className="exams-list-name">{exam.name}</div>
         </div>
     ));
 

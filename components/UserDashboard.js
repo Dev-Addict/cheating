@@ -1,7 +1,10 @@
-const UserDashboard = (props) => {
+import ExamsList from "./ExamsList";
+
+const UserDashboard = ({exams}) => {
     return (
         <div>
-            UserDashboard
+            <h1>Exams</h1>
+            <ExamsList exams={exams}/>
         </div>
     );
 };
