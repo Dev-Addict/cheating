@@ -54,7 +54,10 @@ exports.signIn = catchRequest(async (req, res) => {
 exports.isSignedIn = catchRequest(
     async (req, res) => {
         res.status(200).json({
-            status: 'success'
+            status: 'success',
+            data: {
+                user: req.user
+            }
         });
     }
 );

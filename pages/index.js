@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import Router from 'next/router'
 import {Formik, Form, Field} from 'formik';
+import Cookie from 'js-cookie';
 
 import BasePage from "../components/BasePage";
 import Input from "../components/Input";
@@ -39,6 +40,7 @@ const Home = ({auth}) => {
         cheating.post('/users/signin', values)
             .then(res => {
                 Router.push('/dashboard');
+                Cookie.set('jwt', res.data.token);
             })
             .catch(err => {
                 setError(err.response.data.message);

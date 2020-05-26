@@ -1,4 +1,5 @@
 import App from "next/app";
+import Cookie from 'js-cookie';
 
 import cheating from "../api/cheating";
 import '../style/main.css';
@@ -12,13 +13,16 @@ class _App extends App {
         }
         const auth = {};
 
+        const token = ((ctx.req || {}).cookies || {}).jwt || Cookie.get('jwt');
+
         try {
-            await cheating.post('/users/checktoken', {}, {
+            const userRes = await cheating.post('/users/checktoken', {}, {
                 headers: {
-                    Authorization: ctx.req.cookies.jwt
+                    Authorization: token
                 }
             });
             auth.isSignedIn = true;
+            auth.user = userRes.data.data.user;
         } catch (err) {
             auth.isSignedIn = false;
         }
