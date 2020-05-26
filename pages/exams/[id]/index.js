@@ -1,6 +1,7 @@
 import Cookie from "js-cookie";
 import Router from "next/router";
 
+import ExamButtons from "../../../components/ExamButtons";
 import cheating from "../../../api/cheating";
 
 const Exam = ({exam, auth}) => {
@@ -22,6 +23,7 @@ const Exam = ({exam, auth}) => {
     return (
         <div className="exam">
             <h1>{exam.name}</h1>
+            <ExamButtons id={exam._id}/>
         </div>
     );
 };
@@ -29,7 +31,6 @@ const Exam = ({exam, auth}) => {
 Exam.getInitialProps = async context => {
     const token = ((context.req || {}).cookies || {}).jwt || Cookie.get('jwtClient');
     let exam;
-    console.log(context.query.id);
     try {
         const res = await cheating.get(`/exams/${context.query.id}`, {
             headers: {
