@@ -1,13 +1,10 @@
-import Head from 'next/head'
+import BasePage from "../components/BasePage";
 
 const Home = ({auth}) => {
     return (
-        <div>
-            <Head>
-                <title>Cheating - Sign In</title>
-            </Head>
+        <BasePage title="Sign In">
             Welcome to Home
-        </div>
+        </BasePage>
     )
 };
 

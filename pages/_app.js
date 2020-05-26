@@ -1,6 +1,7 @@
 import App from "next/app";
 
 import cheating from "../api/cheating";
+import "../style/main.css";
 
 class _App extends App {
     static async getInitialProps({Component, router, ctx}) {
