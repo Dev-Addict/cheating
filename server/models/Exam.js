@@ -8,14 +8,6 @@ const examSchema = new mongoose.Schema({
         maxLength: [40, 'A Exam Must Have a name With Less Than 40 Characters'],
         minLength: [10, 'A Exam Must Have a name With At List 10 Characters']
     },
-    startAt: {
-        type: Date,
-        required: [true, 'A Exam Must Have A startAt']
-    },
-    endAt: {
-        type: Date,
-        required: [true, 'A Exam Must Have A startAt']
-    },
     questions: {
         type: [mongoose.Schema.ObjectId],
         ref: 'Question'

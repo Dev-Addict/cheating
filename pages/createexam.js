@@ -7,11 +7,10 @@ import BasePage from "../components/BasePage";
 import Input from "../components/Input";
 
 const INITIAL_VALUES = {
-    username: '',
-    password: ''
+    name: ''
 };
 
-const CreateUser = ({auth}) => {
+const CreateExam = ({auth}) => {
     if (process.browser && !auth.isSignedIn) {
         Router.push('/');
         return (<div/>);
@@ -43,7 +42,7 @@ const CreateUser = ({auth}) => {
 
     const onSubmit = (values, {setSubmitting}) => {
         setSubmitting(true);
-        cheating.post('/users', values)
+        cheating.post('/exams', values)
             .then(res => {
                 Router.push('/dashboard');
             })
@@ -53,7 +52,7 @@ const CreateUser = ({auth}) => {
             });
     };
     return (
-        <BasePage title="Create User">
+        <BasePage title="Create Exam">
             <div className="form-container">
                 <Formik
                     initialValues={INITIAL_VALUES}
@@ -64,11 +63,10 @@ const CreateUser = ({auth}) => {
                           handleSubmit
                       }) => (
                         <Form onSubmit={handleSubmit}>
-                            <Field type="text" name="username" component={Input} label="Username"/>
-                            <Field type="password" name="password" component={Input} label="Password"/>
+                            <Field type="text" name="name" component={Input} label="Name"/>
                             <div className="error">{error}</div>
                             <button type="submit" disabled={isSubmitting}>
-                                Create User
+                                Create Exam
                             </button>
                         </Form>
                     )}
@@ -78,4 +76,4 @@ const CreateUser = ({auth}) => {
     );
 };
 
-export default CreateUser;
+export default CreateExam;
