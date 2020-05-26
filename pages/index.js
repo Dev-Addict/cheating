@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import Router from 'next/router'
 import {Formik, Form, Field} from 'formik';
 
 import BasePage from "../components/BasePage";
@@ -11,6 +12,14 @@ const INITIAL_VALUES = {
 };
 
 const Home = ({auth}) => {
+    if (process.browser && auth.isSignedIn) {
+        Router.push('/dashboard');
+        return (<div/>);
+    }
+    if (auth.isSignedIn) {
+        return (<div/>);
+    }
+
     const [error, setError] = useState('');
 
     const validate = values => {
@@ -28,7 +37,9 @@ const Home = ({auth}) => {
     const onSubmit = (values, {setSubmitting}) => {
         setSubmitting(true);
         cheating.post('/users/signin', values)
-            .then(res => {})
+            .then(res => {
+                Router.push('/dashboard');
+            })
             .catch(err => {
                 setError(err.response.data.message);
                 setSubmitting(false);
