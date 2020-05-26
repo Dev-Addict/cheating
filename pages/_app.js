@@ -15,7 +15,12 @@ class _App extends App {
 
         const token = ((ctx.req || {}).cookies || {}).jwt || Cookie.get('jwt');
 
+        console.log(Cookie.get());
+
         try {
+            if (!token) {
+                throw new Error();
+            }
             const userRes = await cheating.post('/users/checktoken', {}, {
                 headers: {
                     Authorization: token

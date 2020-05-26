@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const questionSchema = new mongoose.Schema({
-    question: {
-        type: String,
-        required: [true, 'A Question Must Have A question']
-    },
     questionString: {
         type: String,
         default: ''

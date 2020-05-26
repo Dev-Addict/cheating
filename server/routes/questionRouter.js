@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.route('/')
     .get(authController.protect, questionController.getQuestions)
-    .post(authController.protect, upload.single('question'), questionController.saveQuestionImage, questionController.createQuestion);
+    .post(authController.protect, questionController.createQuestion);
 router.route('/:id')
     .get(authController.protect, questionController.getQuestion)
     .patch(authController.protect, questionController.updateQuestion)
