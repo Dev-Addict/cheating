@@ -1,7 +1,9 @@
+import AdminButtons from "./AdminButtons";
+
 const AdminDashboard = (props) => {
     return (
         <div>
-            AdminDashboard
+            <AdminButtons/>
         </div>
     );
 };

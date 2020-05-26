@@ -39,8 +39,8 @@ const Home = ({auth}) => {
         setSubmitting(true);
         cheating.post('/users/signin', values)
             .then(res => {
+                Cookie.set('jwtClient', res.data.token);
                 Router.push('/dashboard');
-                Cookie.set('jwt', res.data.token);
             })
             .catch(err => {
                 setError(err.response.data.message);

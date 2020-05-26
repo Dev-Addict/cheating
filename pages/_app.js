@@ -13,9 +13,7 @@ class _App extends App {
         }
         const auth = {};
 
-        const token = ((ctx.req || {}).cookies || {}).jwt || Cookie.get('jwt');
-
-        console.log(Cookie.get());
+        const token = ((ctx.req || {}).cookies || {}).jwt || Cookie.get('jwtClient');
 
         try {
             if (!token) {
