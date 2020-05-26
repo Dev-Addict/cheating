@@ -3,8 +3,9 @@ import Router from "next/router";
 
 import ExamButtons from "../../../components/ExamButtons";
 import cheating from "../../../api/cheating";
+import QuestionsList from "../../../components/QuestionsList";
 
-const Exam = ({exam, auth}) => {
+const Exam = ({exam, auth, questions}) => {
     if (process.browser && !auth.isSignedIn) {
         Router.push('/');
         return (<div/>);
@@ -24,6 +25,7 @@ const Exam = ({exam, auth}) => {
         <div className="exam">
             <h1>{exam.name}</h1>
             <ExamButtons id={exam._id}/>
+            <QuestionsList questions={questions} exam={exam}/>
         </div>
     );
 };
@@ -31,6 +33,7 @@ const Exam = ({exam, auth}) => {
 Exam.getInitialProps = async context => {
     const token = ((context.req || {}).cookies || {}).jwt || Cookie.get('jwtClient');
     let exam;
+    let questions;
     try {
         const res = await cheating.get(`/exams/${context.query.id}`, {
             headers: {
@@ -41,8 +44,19 @@ Exam.getInitialProps = async context => {
     } catch (err) {
         exam = undefined;
     }
+    try {
+        const res = await cheating.get(`/questions`, {
+            headers: {
+                Authorization: token
+            }
+        });
+        questions = res.data.data.docs;
+    } catch (err) {
+        questions = [];
+    }
     return {
-        exam
+        exam,
+        questions
     };
 };
 
