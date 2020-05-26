@@ -1,7 +1,9 @@
+import {useState} from 'react';
 import {Formik, Form, Field} from 'formik';
 
 import BasePage from "../components/BasePage";
 import Input from "../components/Input";
+import cheating from "../api/cheating";
 
 const INITIAL_VALUES = {
     username: '',
@@ -9,6 +11,8 @@ const INITIAL_VALUES = {
 };
 
 const Home = ({auth}) => {
+    const [error, setError] = useState('');
+
     const validate = values => {
         const errors = {};
 
@@ -21,7 +25,14 @@ const Home = ({auth}) => {
         return errors;
     };
 
-    const onSubmit = (values) => {
+    const onSubmit = (values, {setSubmitting}) => {
+        setSubmitting(true);
+        cheating.post('/users/signin', values)
+            .then(res => {})
+            .catch(err => {
+                setError(err.response.data.message);
+                setSubmitting(false);
+            });
     };
 
     return (
@@ -38,6 +49,7 @@ const Home = ({auth}) => {
                         <Form onSubmit={handleSubmit}>
                             <Field type="text" name="username" component={Input} label="Username"/>
                             <Field type="password" name="password" component={Input} label="Password"/>
+                            <div className="error">{error}</div>
                             <button type="submit" disabled={isSubmitting}>
                                 Sign In
                             </button>

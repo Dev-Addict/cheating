@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-const BasePage = ({children, className, auth, title}) => {
+const BasePage = ({children, className = '', auth, title = ''}) => {
     return (
         <div className={`base-page ${className}`}>
             <Head>

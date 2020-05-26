@@ -1,7 +1,7 @@
 import App from "next/app";
 
 import cheating from "../api/cheating";
-import "../style/main.css";
+import '../style/main.css';
 
 class _App extends App {
     static async getInitialProps({Component, router, ctx}) {
@@ -13,7 +13,11 @@ class _App extends App {
         const auth = {};
 
         try {
-            await cheating.post('/api/v1/users/checktoken');
+            await cheating.post('/users/checktoken', {}, {
+                headers: {
+                    Authorization: ctx.req.cookies.jwt
+                }
+            });
             auth.isSignedIn = true;
         } catch (err) {
             auth.isSignedIn = false;

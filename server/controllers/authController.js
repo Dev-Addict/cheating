@@ -40,7 +40,7 @@ exports.signIn = catchRequest(async (req, res) => {
         !password ||
         password.length < 8 ||
         password.length > 100) {
-        throw new AppError('request body should have valid email and password.', 400);
+        throw new AppError('request body should have valid username and password.', 400);
     }
     const user = await User.findOne({username}).select('+password');
 
